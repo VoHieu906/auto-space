@@ -1,5 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
+import { add } from '@autospace/sample-lib';
 
 @Controller()
 export class AppController {
@@ -7,6 +8,6 @@ export class AppController {
 
   @Get()
   getHello(): string {
-    return this.appService.getHello();
+    return `hello ${add(12, 2)}`;
   }
 }
