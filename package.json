@@ -14,7 +14,6 @@
     ]
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "format": "prettier  \"{apps,libs}/**/*.{ts,tsx,js,json}\" --ignore-path .gitignore",
     "format:check": "yarn format --check",
     "format:write": "yarn format --write",
@@ -22,21 +21,19 @@
     "lint": "yarn nx run-many -t lint",
     "build": "yarn nx run-many -t build",
     "validate": "yarn format:write && yarn tsc && yarn lint && yarn build",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "cloc": "npx cloc --exclude-dir=node_modules,dist,build,yarn.lock,package.json,generated.tsx,.next,.nx ."
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^8.24.1",
-    "@typescript-eslint/parser": "^8.24.1",
-    "eslint": "^9.20.1",
-    "eslint-config-prettier": "^10.0.1",
-    "eslint-plugin-prettier": "^5.2.3",
     "husky": "^8.0.0",
-    "nx": "20.4.5",
-    "prettier": "^3.5.1",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.7.3"
+    "nx": "18.3.4",
+    "prettier": "^2.3.2",
+    "typescript": "5.4.3"
+  },
+  "resolutions": {
+    "typescript": "5.4.3"
   }
 }
