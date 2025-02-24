@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { GraphQLModule } from '@nestjs/graphql';
+import { GraphQLModule, registerEnumType } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
 
@@ -22,6 +22,7 @@ import { ValetAssignmentsModule } from './models/valet-assignments/valet-assignm
 import { BookingTimelinesModule } from './models/booking-timelines/booking-timelines.module';
 import { ReviewsModule } from './models/reviews/reviews.module';
 import { VerificationsModule } from './models/verifications/verifications.module';
+import { $Enums } from '@prisma/client';
 
 //Todo: move this to util lib
 const MAX_AGE = 24 * 60 * 60;
@@ -38,9 +39,10 @@ const MAX_AGE = 24 * 60 * 60;
       introspection: true,
       fieldResolverEnhancers: ['guards'],
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
-      buildSchemaOptions: {
-        numberScalarMode: 'integer'
-      }
+      // buildSchemaOptions: {
+      //   numberScalarMode: 'integer'
+      // },
+      debug: true
     }),
     PrismaModule,
     UsersModule,
@@ -61,4 +63,10 @@ const MAX_AGE = 24 * 60 * 60;
   controllers: [AppController],
   providers: [AppService]
 })
-export class AppModule {}
+export class AppModule {
+  constructor() {
+    registerEnumType($Enums.SlotType, { name: 'SlotType' });
+    console.log('CWD: ', process.cwd());
+    console.log('Schema path: ', join(process.cwd(), 'src/schema.gql'));
+  }
+}
