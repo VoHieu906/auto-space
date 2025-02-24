@@ -32,6 +32,9 @@ type Admin {
   uid: String!
   createdAt: DateTime!
   updatedAt: DateTime!
+  user: User
+  verifications: [Verification!]!
+  verificationsCount: Float!
 }
 
 type Manager {
@@ -58,6 +61,15 @@ type Customer {
   uid: String!
   createdAt: DateTime!
   updatedAt: DateTime!
+  user: User
+}
+
+type Verification {
+  createdAt: DateTime!
+  garageId: Float!
+  updatedAt: DateTime!
+  verified: Boolean!
+  adminId: String!
 }
 
 type Company {
@@ -563,14 +575,6 @@ type Slot {
 
 type ReturnCount {
   count: Float!
-}
-
-type Verification {
-  createdAt: DateTime!
-  garageId: Float!
-  updatedAt: DateTime!
-  verified: Boolean!
-  adminId: String!
 }
 
 type MinimalSlotGroupBy {
