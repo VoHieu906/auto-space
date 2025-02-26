@@ -10,18 +10,12 @@ import {
 import { fetchGraphQL } from "../fetch";
 import * as jwt from "jsonwebtoken";
 import { JWT } from "next-auth/jwt";
-import type { DefaultUser } from "next-auth";
+
 const MAX_AGE = 1 * 24 * 60 * 60;
 
 const secureCookies = process.env.NEXTAUTH_URL?.startsWith("https://");
 const hostName = new URL(process.env.NEXTAUTH_URL || "").hostname;
 const rootDomain = "karthicktech.com";
-
-declare module "next-auth" {
-  interface Session {
-    user?: Omit<DefaultUser, "id"> & { uid: string };
-  }
-}
 
 export const authOptions: NextAuthOptions = {
   // Configure authentication providers
