@@ -43,20 +43,56 @@ query Companies(
 mutation Login($loginInput: LoginInput!) {
   login(LoginInput: $loginInput) {
     token
-    user {uid name image}
+    user {
+      uid
+      name
+      image
+    }
   }
 }
 
-query GetAuthProvider ($uid: String!) {
+query GetAuthProvider($uid: String!) {
   getAuthProvider(uid: $uid) {
     uid
     type
   }
 }
 
-mutation RegisterWithProvider ($registerWithProviderInput: RegisterWithProviderInput!) {
+mutation RegisterWithProvider(
+  $registerWithProviderInput: RegisterWithProviderInput!
+) {
   registerWithProvider(registerWithProviderInput: $registerWithProviderInput) {
-   uid
+    uid
   }
 }
 
+query SearchGarages(
+  $dateFilter: DateFilterInput!
+  $locationFilter: LocationFilterInput!
+  $slotsFilter: SlotWhereInput
+  $garageFilter: GarageFilter
+) {
+  searchGarages(
+    dateFilter: $dateFilter
+    locationFilter: $locationFilter
+    slotsFilter: $slotsFilter
+    garageFilter: $garageFilter
+  ) {
+    id
+    address {
+      lat
+      lng
+      address
+    }
+    images
+    displayName
+    availableSlots(dateFilter: $dateFilter, slotsFilter: $slotsFilter) {
+      type
+      pricePerHour
+      count
+    }
+    verification {
+      verified
+    }
+  }
+}
