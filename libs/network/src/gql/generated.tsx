@@ -12,7 +12,7 @@ export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
 };
 export type MakeEmpty<
   T extends { [key: string]: unknown },
-  K extends keyof T,
+  K extends keyof T
 > = { [_ in K]?: never };
 export type Incremental<T> =
   | T
@@ -1305,7 +1305,7 @@ export enum QueryMode {
 export type RegisterWithCredentialsInput = {
   email: Scalars["String"]["input"];
   image?: InputMaybe<Scalars["String"]["input"]>;
-  name: Scalars["String"]["input"];
+  name?: InputMaybe<Scalars["String"]["input"]>;
   password: Scalars["String"]["input"];
 };
 
