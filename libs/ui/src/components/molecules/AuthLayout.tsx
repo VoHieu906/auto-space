@@ -11,6 +11,7 @@ export interface IAuthLayoutProps {
 }
 
 export const AuthLayout = ({ title, children }: IAuthLayoutProps) => {
+  console.log("AuthLayout: ", title);
   return (
     <div className="relative h-[calc(100vh-4rem)]  ">
       <div className=" flex flex-col justify-center items-center absolute top-0 bg-black/20 backdrop-blur-sm bottom-0  ">

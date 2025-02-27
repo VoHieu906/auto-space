@@ -2,6 +2,7 @@ import { RegisterForm } from "@autospace/ui/src/components/templates/RegisterFor
 import { AuthLayout } from "@autospace/ui/src/components/molecules/AuthLayout";
 
 export default function Page() {
+  console.log("register page");
   return (
     <AuthLayout title={"Register"}>
       <RegisterForm />

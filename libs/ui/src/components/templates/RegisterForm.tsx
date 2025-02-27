@@ -22,7 +22,7 @@ export const RegisterForm = ({ className, role }: ISignupFormProps) => {
   } = useFormRegister();
 
   const [registerWithCredentials, { loading }] = useMutation(
-    RegisterWithCredentialsDocument
+    RegisterWithCredentialsDocument,
   );
   console.log("roleRegisterForm", role);
   console.log("ClassnameRegisterForm", className);
