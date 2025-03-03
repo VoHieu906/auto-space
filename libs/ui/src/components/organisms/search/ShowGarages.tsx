@@ -1,7 +1,7 @@
 import { useLazyQuery } from "@apollo/client";
 import { SearchGaragesDocument } from "@autospace/network/src/gql/generated";
 import { useEffect } from "react";
-import { GarageMarker } from "./ShowMarker";
+import { GarageMarker } from "./GarageMarker";
 import { useConvertSearchFormToVariables } from "@autospace/forms/src/adapters/searchFormAdapter";
 
 export const ShowGarages = () => {

@@ -23,6 +23,7 @@ import { BookingTimelinesModule } from './models/booking-timelines/booking-timel
 import { ReviewsModule } from './models/reviews/reviews.module';
 import { VerificationsModule } from './models/verifications/verifications.module';
 import { $Enums } from '@prisma/client';
+import { StripeModule } from './models/stripe/stripe.module';
 
 //Todo: move this to util lib
 const MAX_AGE = 24 * 60 * 60;
@@ -44,6 +45,7 @@ const MAX_AGE = 24 * 60 * 60;
       // },
       debug: true
     }),
+    StripeModule,
     PrismaModule,
     UsersModule,
     AdminsModule,
