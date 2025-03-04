@@ -18,11 +18,12 @@ export const SearchPage = () => {
   const {
     register,
     setValue,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     formState: { errors },
     watch,
     trigger,
   } = useFormContext<FormTypeSearchGarage>();
-  console.log("errors ", errors);
+  // console.log("errors ", errors);
   const formData = watch();
   const handleMapChange = useCallback(
     (target: ViewStateChangeEvent["target"]) => {

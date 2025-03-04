@@ -24,7 +24,7 @@ import { Button } from "../atoms/Button";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { TotalPrice } from "@autospace/util/types";
-// import { ManageValets } from "./ManageValets";
+import { ManageValets } from "./ManageValets";
 import { toast } from "../molecules/Toast";
 
 export const BookSlotPopup = ({
@@ -202,7 +202,7 @@ export const BookSlotPopup = ({
         <HtmlLabel title="Phone number" error={errors.phoneNumber?.message}>
           <HtmlInput placeholder="+910000000000" {...register("phoneNumber")} />
         </HtmlLabel>
-        {/* <ManageValets garage={garage} /> */}
+        <ManageValets garage={garage} />
 
         {totalPriceObj ? (
           <div className="mt-4">
