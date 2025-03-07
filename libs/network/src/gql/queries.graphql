@@ -115,3 +115,9 @@ query myCompany {
     displayName
   }
 }
+
+mutation CreateCompany($createCompanyInput: CreateCompanyInput!) {
+  createCompany(createCompanyInput: $createCompanyInput) {
+    id
+  }
+}

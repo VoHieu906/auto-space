@@ -4,6 +4,7 @@ import { useQuery } from "@apollo/client";
 import { LoaderPanel } from "../molecules/Loader";
 import { AlertSection } from "../molecules/AlertSection";
 import { ReactNode } from "react";
+import { CreateCompany } from "./CreateCompany";
 
 type RenderPropChild = (id: number) => ReactNode;
 
@@ -16,8 +17,8 @@ export const IsManager = ({ children }: BaseComponent) => {
     return (
       <AlertSection>
         <div>
-          {" "}
           <div>You don&apos;t have a company yet.</div>
+          <CreateCompany />
         </div>
       </AlertSection>
     );

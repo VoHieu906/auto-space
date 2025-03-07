@@ -2007,6 +2007,15 @@ export type MyCompanyQuery = {
   };
 };
 
+export type CreateCompanyMutationVariables = Exact<{
+  createCompanyInput: CreateCompanyInput;
+}>;
+
+export type CreateCompanyMutation = {
+  __typename?: "Mutation";
+  createCompany: { __typename?: "Company"; id: number };
+};
+
 export const namedOperations = {
   Query: {
     Companies: "Companies",
@@ -2018,6 +2027,7 @@ export const namedOperations = {
     RegisterWithCredentials: "RegisterWithCredentials",
     Login: "Login",
     RegisterWithProvider: "RegisterWithProvider",
+    CreateCompany: "CreateCompany",
   },
 };
 
@@ -2662,3 +2672,57 @@ export const MyCompanyDocument = {
     },
   ],
 } as unknown as DocumentNode<MyCompanyQuery, MyCompanyQueryVariables>;
+export const CreateCompanyDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "CreateCompany" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "createCompanyInput" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "CreateCompanyInput" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "createCompany" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "createCompanyInput" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "createCompanyInput" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  CreateCompanyMutation,
+  CreateCompanyMutationVariables
+>;
