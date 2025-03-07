@@ -12,7 +12,7 @@ export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
 };
 export type MakeEmpty<
   T extends { [key: string]: unknown },
-  K extends keyof T,
+  K extends keyof T
 > = { [_ in K]?: never };
 export type Incremental<T> =
   | T
@@ -1982,11 +1982,37 @@ export type SearchGaragesQuery = {
   }>;
 };
 
+export type MyCompanyQueryVariables = Exact<{ [key: string]: never }>;
+
+export type MyCompanyQuery = {
+  __typename?: "Query";
+  myCompany: {
+    __typename?: "Company";
+    id: number;
+    createdAt: any;
+    displayName?: string | null;
+    garages: Array<{
+      __typename?: "Garage";
+      displayName?: string | null;
+      id: number;
+      description?: string | null;
+      address?: {
+        __typename?: "Address";
+        id: number;
+        address: string;
+        lat: number;
+        lng: number;
+      } | null;
+    }>;
+  };
+};
+
 export const namedOperations = {
   Query: {
     Companies: "Companies",
     GetAuthProvider: "GetAuthProvider",
     SearchGarages: "SearchGarages",
+    myCompany: "myCompany",
   },
   Mutation: {
     RegisterWithCredentials: "RegisterWithCredentials",
@@ -2566,3 +2592,73 @@ export const SearchGaragesDocument = {
     },
   ],
 } as unknown as DocumentNode<SearchGaragesQuery, SearchGaragesQueryVariables>;
+export const MyCompanyDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "myCompany" },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "myCompany" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "garages" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "displayName" },
+                      },
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "description" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "address" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "id" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "address" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "lat" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "lng" },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                { kind: "Field", name: { kind: "Name", value: "createdAt" } },
+                { kind: "Field", name: { kind: "Name", value: "displayName" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<MyCompanyQuery, MyCompanyQueryVariables>;

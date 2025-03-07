@@ -11,6 +11,7 @@ export interface ILoginFormProps {
   className?: string;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const LoginForm = ({ className }: ILoginFormProps) => {
   const {
     register,
@@ -18,7 +19,7 @@ export const LoginForm = ({ className }: ILoginFormProps) => {
     formState: { errors },
   } = useFormLogin();
   console.log(errors);
-  console.log(className);
+
   const { replace } = useRouter();
   return (
     <Form
