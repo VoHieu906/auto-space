@@ -31,6 +31,11 @@ export class GaragesService {
           images
         }
       });
+      const slotsByType = this.groupSlotsByType(Slots, createdGarage.id);
+
+      await tx.slot.createMany({
+        data: slotsByType
+      });
 
       return createdGarage;
     });

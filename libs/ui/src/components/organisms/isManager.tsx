@@ -1,5 +1,4 @@
 import { MyCompanyDocument } from "@autospace/network/src/gql/generated";
-import { BaseComponent } from "@autospace/util/types";
 import { useQuery } from "@apollo/client";
 import { LoaderPanel } from "../molecules/Loader";
 import { AlertSection } from "../molecules/AlertSection";
@@ -8,7 +7,11 @@ import { CreateCompany } from "./CreateCompany";
 
 type RenderPropChild = (id: number) => ReactNode;
 
-export const IsManager = ({ children }: BaseComponent) => {
+export const IsManager = ({
+  children,
+}: {
+  children: RenderPropChild | ReactNode;
+}) => {
   const { data, loading } = useQuery(MyCompanyDocument);
   if (loading) {
     return <LoaderPanel text="Loading company..." />;

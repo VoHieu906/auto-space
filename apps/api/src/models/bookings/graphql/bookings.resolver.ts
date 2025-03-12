@@ -91,7 +91,9 @@ export class BookingsResolver {
       where: { id: garageId },
       include: { Company: { include: { Managers: true } } }
     });
-
+    if (!garage) {
+      throw new BadRequestException(`Garage with ID ${garageId} not found`);
+    }
     checkRowLevelPermission(
       user,
       garage.Company.Managers.map((manager) => manager.uid)

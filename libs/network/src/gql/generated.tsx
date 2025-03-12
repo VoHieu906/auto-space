@@ -2016,21 +2016,363 @@ export type CreateCompanyMutation = {
   createCompany: { __typename?: "Company"; id: number };
 };
 
+export type GaragesQueryVariables = Exact<{
+  skip?: InputMaybe<Scalars["Float"]["input"]>;
+  take?: InputMaybe<Scalars["Float"]["input"]>;
+  cursor?: InputMaybe<GarageWhereUniqueInput>;
+  orderBy?: InputMaybe<
+    Array<GarageOrderByWithRelationInput> | GarageOrderByWithRelationInput
+  >;
+  where?: InputMaybe<GarageWhereInput>;
+}>;
+
+export type GaragesQuery = {
+  __typename?: "Query";
+  garages: Array<{
+    __typename?: "Garage";
+    id: number;
+    displayName?: string | null;
+    description?: string | null;
+    images: Array<string>;
+    verification?: { __typename?: "Verification"; verified: boolean } | null;
+    address?: {
+      __typename?: "Address";
+      id: number;
+      lat: number;
+      lng: number;
+      address: string;
+    } | null;
+    slotCounts: Array<{
+      __typename?: "SlotTypeCount";
+      type: SlotType;
+      count?: number | null;
+    }>;
+  }>;
+  garagesCount: { __typename?: "AggregateCountOutput"; count: number };
+};
+
+export type CreateGarageMutationVariables = Exact<{
+  createGarageInput: CreateGarageInput;
+}>;
+
+export type CreateGarageMutation = {
+  __typename?: "Mutation";
+  createGarage: { __typename?: "Garage"; id: number };
+};
+
+export type CreateManySlotsMutationVariables = Exact<{
+  createSlotInput: CreateSlotInput;
+  count: Scalars["Float"]["input"];
+}>;
+
+export type CreateManySlotsMutation = {
+  __typename?: "Mutation";
+  createManySlots: { __typename?: "ReturnCount"; count: number };
+};
+
+export type ValetFieldsFragment = {
+  __typename?: "Valet";
+  image?: string | null;
+  uid: string;
+  displayName: string;
+};
+
+export type BookingFieldsFragment = {
+  __typename?: "Booking";
+  id: number;
+  pricePerHour?: number | null;
+  endTime: any;
+  startTime: any;
+  vehicleNumber: string;
+  passcode?: string | null;
+  status: BookingStatus;
+  bookingTimeline: Array<{
+    __typename?: "BookingTimeline";
+    status: BookingStatus;
+    timestamp: any;
+  }>;
+  valetAssignment?: {
+    __typename?: "ValetAssignment";
+    pickupValet?: {
+      __typename?: "Valet";
+      image?: string | null;
+      uid: string;
+      displayName: string;
+    } | null;
+    returnValet?: {
+      __typename?: "Valet";
+      image?: string | null;
+      uid: string;
+      displayName: string;
+    } | null;
+  } | null;
+  slot: {
+    __typename?: "Slot";
+    displayName?: string | null;
+    garage: {
+      __typename?: "Garage";
+      images: Array<string>;
+      address?: {
+        __typename?: "Address";
+        address: string;
+        lat: number;
+        lng: number;
+      } | null;
+    };
+  };
+};
+
+export type BookingsForGarageQueryVariables = Exact<{
+  skip?: InputMaybe<Scalars["Float"]["input"]>;
+  take?: InputMaybe<Scalars["Float"]["input"]>;
+  cursor?: InputMaybe<BookingWhereUniqueInput>;
+  orderBy?: InputMaybe<
+    Array<BookingOrderByWithRelationInput> | BookingOrderByWithRelationInput
+  >;
+  where?: InputMaybe<BookingWhereInput>;
+  distinct?: InputMaybe<Array<BookingScalarFieldEnum> | BookingScalarFieldEnum>;
+}>;
+
+export type BookingsForGarageQuery = {
+  __typename?: "Query";
+  bookingsForGarage: Array<{
+    __typename?: "Booking";
+    id: number;
+    pricePerHour?: number | null;
+    endTime: any;
+    startTime: any;
+    vehicleNumber: string;
+    passcode?: string | null;
+    status: BookingStatus;
+    bookingTimeline: Array<{
+      __typename?: "BookingTimeline";
+      status: BookingStatus;
+      timestamp: any;
+    }>;
+    valetAssignment?: {
+      __typename?: "ValetAssignment";
+      pickupValet?: {
+        __typename?: "Valet";
+        image?: string | null;
+        uid: string;
+        displayName: string;
+      } | null;
+      returnValet?: {
+        __typename?: "Valet";
+        image?: string | null;
+        uid: string;
+        displayName: string;
+      } | null;
+    } | null;
+    slot: {
+      __typename?: "Slot";
+      displayName?: string | null;
+      garage: {
+        __typename?: "Garage";
+        images: Array<string>;
+        address?: {
+          __typename?: "Address";
+          address: string;
+          lat: number;
+          lng: number;
+        } | null;
+      };
+    };
+  }>;
+  bookingsCount: { __typename?: "AggregateCountOutput"; count: number };
+};
+
+export type CreateBookingTimelineMutationVariables = Exact<{
+  createBookingTimelineInput: CreateBookingTimelineInput;
+}>;
+
+export type CreateBookingTimelineMutation = {
+  __typename?: "Mutation";
+  createBookingTimeline: {
+    __typename?: "BookingTimeline";
+    bookingId: number;
+    id: number;
+    managerId?: string | null;
+    status: BookingStatus;
+    timestamp: any;
+  };
+};
+
 export const namedOperations = {
   Query: {
     Companies: "Companies",
     GetAuthProvider: "GetAuthProvider",
     SearchGarages: "SearchGarages",
     myCompany: "myCompany",
+    Garages: "Garages",
+    BookingsForGarage: "BookingsForGarage",
   },
   Mutation: {
     RegisterWithCredentials: "RegisterWithCredentials",
     Login: "Login",
     RegisterWithProvider: "RegisterWithProvider",
     CreateCompany: "CreateCompany",
+    CreateGarage: "CreateGarage",
+    CreateManySlots: "CreateManySlots",
+    createBookingTimeline: "createBookingTimeline",
+  },
+  Fragment: {
+    ValetFields: "ValetFields",
+    BookingFields: "BookingFields",
   },
 };
-
+export const ValetFieldsFragmentDoc = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "ValetFields" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "Valet" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "image" } },
+          { kind: "Field", name: { kind: "Name", value: "uid" } },
+          { kind: "Field", name: { kind: "Name", value: "displayName" } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<ValetFieldsFragment, unknown>;
+export const BookingFieldsFragmentDoc = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "BookingFields" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "Booking" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "id" } },
+          { kind: "Field", name: { kind: "Name", value: "pricePerHour" } },
+          { kind: "Field", name: { kind: "Name", value: "endTime" } },
+          { kind: "Field", name: { kind: "Name", value: "startTime" } },
+          { kind: "Field", name: { kind: "Name", value: "vehicleNumber" } },
+          { kind: "Field", name: { kind: "Name", value: "passcode" } },
+          { kind: "Field", name: { kind: "Name", value: "status" } },
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "bookingTimeline" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "status" } },
+                { kind: "Field", name: { kind: "Name", value: "timestamp" } },
+              ],
+            },
+          },
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "valetAssignment" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "pickupValet" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "FragmentSpread",
+                        name: { kind: "Name", value: "ValetFields" },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "returnValet" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "FragmentSpread",
+                        name: { kind: "Name", value: "ValetFields" },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "slot" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "displayName" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "garage" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "images" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "address" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "address" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "lat" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "lng" },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "ValetFields" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "Valet" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "image" } },
+          { kind: "Field", name: { kind: "Name", value: "uid" } },
+          { kind: "Field", name: { kind: "Name", value: "displayName" } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<BookingFieldsFragment, unknown>;
 export const RegisterWithCredentialsDocument = {
   kind: "Document",
   definitions: [
@@ -2725,4 +3067,668 @@ export const CreateCompanyDocument = {
 } as unknown as DocumentNode<
   CreateCompanyMutation,
   CreateCompanyMutationVariables
+>;
+export const GaragesDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "Garages" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "skip" } },
+          type: { kind: "NamedType", name: { kind: "Name", value: "Float" } },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "take" } },
+          type: { kind: "NamedType", name: { kind: "Name", value: "Float" } },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "cursor" },
+          },
+          type: {
+            kind: "NamedType",
+            name: { kind: "Name", value: "GarageWhereUniqueInput" },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "orderBy" },
+          },
+          type: {
+            kind: "ListType",
+            type: {
+              kind: "NonNullType",
+              type: {
+                kind: "NamedType",
+                name: { kind: "Name", value: "GarageOrderByWithRelationInput" },
+              },
+            },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "where" },
+          },
+          type: {
+            kind: "NamedType",
+            name: { kind: "Name", value: "GarageWhereInput" },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "garages" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "skip" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "skip" },
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "take" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "take" },
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "cursor" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "cursor" },
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "orderBy" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "orderBy" },
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "where" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "where" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "displayName" } },
+                { kind: "Field", name: { kind: "Name", value: "description" } },
+                { kind: "Field", name: { kind: "Name", value: "images" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "verification" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "verified" },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "address" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      { kind: "Field", name: { kind: "Name", value: "lat" } },
+                      { kind: "Field", name: { kind: "Name", value: "lng" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "address" },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "slotCounts" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "type" } },
+                      { kind: "Field", name: { kind: "Name", value: "count" } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "garagesCount" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "where" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "where" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "count" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GaragesQuery, GaragesQueryVariables>;
+export const CreateGarageDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "CreateGarage" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "createGarageInput" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "CreateGarageInput" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "createGarage" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "createGarageInput" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "createGarageInput" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  CreateGarageMutation,
+  CreateGarageMutationVariables
+>;
+export const CreateManySlotsDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "CreateManySlots" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "createSlotInput" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "CreateSlotInput" },
+            },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "count" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "Float" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "createManySlots" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "createSlotInput" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "createSlotInput" },
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "count" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "count" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "count" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  CreateManySlotsMutation,
+  CreateManySlotsMutationVariables
+>;
+export const BookingsForGarageDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "BookingsForGarage" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "skip" } },
+          type: { kind: "NamedType", name: { kind: "Name", value: "Float" } },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "take" } },
+          type: { kind: "NamedType", name: { kind: "Name", value: "Float" } },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "cursor" },
+          },
+          type: {
+            kind: "NamedType",
+            name: { kind: "Name", value: "BookingWhereUniqueInput" },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "orderBy" },
+          },
+          type: {
+            kind: "ListType",
+            type: {
+              kind: "NonNullType",
+              type: {
+                kind: "NamedType",
+                name: {
+                  kind: "Name",
+                  value: "BookingOrderByWithRelationInput",
+                },
+              },
+            },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "where" },
+          },
+          type: {
+            kind: "NamedType",
+            name: { kind: "Name", value: "BookingWhereInput" },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "distinct" },
+          },
+          type: {
+            kind: "ListType",
+            type: {
+              kind: "NonNullType",
+              type: {
+                kind: "NamedType",
+                name: { kind: "Name", value: "BookingScalarFieldEnum" },
+              },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "bookingsForGarage" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "skip" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "skip" },
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "take" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "take" },
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "cursor" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "cursor" },
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "orderBy" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "orderBy" },
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "where" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "where" },
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "distinct" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "distinct" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                {
+                  kind: "FragmentSpread",
+                  name: { kind: "Name", value: "BookingFields" },
+                },
+              ],
+            },
+          },
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "bookingsCount" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "where" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "where" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "count" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "ValetFields" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "Valet" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "image" } },
+          { kind: "Field", name: { kind: "Name", value: "uid" } },
+          { kind: "Field", name: { kind: "Name", value: "displayName" } },
+        ],
+      },
+    },
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "BookingFields" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "Booking" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "id" } },
+          { kind: "Field", name: { kind: "Name", value: "pricePerHour" } },
+          { kind: "Field", name: { kind: "Name", value: "endTime" } },
+          { kind: "Field", name: { kind: "Name", value: "startTime" } },
+          { kind: "Field", name: { kind: "Name", value: "vehicleNumber" } },
+          { kind: "Field", name: { kind: "Name", value: "passcode" } },
+          { kind: "Field", name: { kind: "Name", value: "status" } },
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "bookingTimeline" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "status" } },
+                { kind: "Field", name: { kind: "Name", value: "timestamp" } },
+              ],
+            },
+          },
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "valetAssignment" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "pickupValet" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "FragmentSpread",
+                        name: { kind: "Name", value: "ValetFields" },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "returnValet" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "FragmentSpread",
+                        name: { kind: "Name", value: "ValetFields" },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "slot" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "displayName" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "garage" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "images" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "address" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "address" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "lat" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "lng" },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  BookingsForGarageQuery,
+  BookingsForGarageQueryVariables
+>;
+export const CreateBookingTimelineDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "createBookingTimeline" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "createBookingTimelineInput" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "CreateBookingTimelineInput" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "createBookingTimeline" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "createBookingTimelineInput" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "createBookingTimelineInput" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "bookingId" } },
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "managerId" } },
+                { kind: "Field", name: { kind: "Name", value: "status" } },
+                { kind: "Field", name: { kind: "Name", value: "timestamp" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  CreateBookingTimelineMutation,
+  CreateBookingTimelineMutationVariables
 >;
