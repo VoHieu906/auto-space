@@ -18,7 +18,7 @@ export const HtmlLabel = React.forwardRef<HTMLLabelElement, HtmlLabelProps>(
       {children}
       <FormError error={error} />
     </label>
-  )
+  ),
 );
 
 HtmlLabel.displayName = "HtmlLabel";

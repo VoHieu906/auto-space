@@ -117,6 +117,11 @@ export class BookingsResolver {
     @Args('where', { nullable: true })
     where: BookingWhereInput
   ) {
+    if (!where?.Slot?.is?.garageId.equals) {
+      throw new BadRequestException(
+        'Garage ID must be provided in where.Slot.is.garageId.equals'
+      );
+    }
     const bookings = await this.prisma.booking.aggregate({
       where,
       _count: { _all: true }

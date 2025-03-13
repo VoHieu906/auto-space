@@ -27,7 +27,7 @@ export const ShowData = ({
   const { setSkip, setTake, skip, take, resultCount, totalCount } = pagination;
   const handlePageChange = (
     event: React.ChangeEvent<unknown>,
-    page: number
+    page: number,
   ) => {
     setSkip((page - 1) * take);
   };
