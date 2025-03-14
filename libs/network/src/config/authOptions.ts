@@ -53,7 +53,7 @@ export const authOptions: NextAuthOptions = {
 
           if (!data?.login.token || error) {
             throw new Error(
-              "Authentication failed: Invalid credentials or user not found",
+              "Authentication failed: Invalid credentials or user not found"
             );
           }
           const uid = data.login.user.uid;
@@ -95,7 +95,7 @@ export const authOptions: NextAuthOptions = {
         secret,
         {
           algorithm: "HS256",
-        },
+        }
       );
     },
     // Custom JWT decoding function

@@ -17,7 +17,7 @@ export const CheckInOutButton = ({
 }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [checkIn, { data, loading }] = useMutation(
-    CreateBookingTimelineDocument,
+    CreateBookingTimelineDocument
   );
   return (
     <Button

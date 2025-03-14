@@ -12,7 +12,7 @@ export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
 };
 export type MakeEmpty<
   T extends { [key: string]: unknown },
-  K extends keyof T,
+  K extends keyof T
 > = { [_ in K]?: never };
 export type Incremental<T> =
   | T
@@ -2258,6 +2258,52 @@ export type CreateBookingTimelineMutation = {
   };
 };
 
+export type ValetMeQueryVariables = Exact<{ [key: string]: never }>;
+
+export type ValetMeQuery = {
+  __typename?: "Query";
+  valetMe?: {
+    __typename?: "Valet";
+    uid: string;
+    companyId?: number | null;
+  } | null;
+};
+
+export type CreateValetMutationVariables = Exact<{
+  createValetInput: CreateValetInput;
+}>;
+
+export type CreateValetMutation = {
+  __typename?: "Mutation";
+  createValet: { __typename?: "Valet"; uid: string };
+};
+
+export type CompanyValetsQueryVariables = Exact<{
+  distinct?: InputMaybe<Array<ValetScalarFieldEnum> | ValetScalarFieldEnum>;
+  skip?: InputMaybe<Scalars["Float"]["input"]>;
+  take?: InputMaybe<Scalars["Float"]["input"]>;
+  cursor?: InputMaybe<ValetWhereUniqueInput>;
+  orderBy?: InputMaybe<
+    Array<ValetOrderByWithRelationInput> | ValetOrderByWithRelationInput
+  >;
+  where?: InputMaybe<ValetWhereInput>;
+}>;
+
+export type CompanyValetsQuery = {
+  __typename?: "Query";
+  companyValetsTotal: number;
+  companyValets: Array<{
+    __typename?: "Valet";
+    displayName: string;
+    uid: string;
+    createdAt: any;
+    updatedAt: any;
+    companyId?: number | null;
+    image?: string | null;
+    licenseID: string;
+  }>;
+};
+
 export const namedOperations = {
   Query: {
     Companies: "Companies",
@@ -2267,6 +2313,8 @@ export const namedOperations = {
     Garages: "Garages",
     BookingsForCustomer: "BookingsForCustomer",
     BookingsForGarage: "BookingsForGarage",
+    ValetMe: "ValetMe",
+    companyValets: "companyValets",
   },
   Mutation: {
     RegisterWithCredentials: "RegisterWithCredentials",
@@ -2276,6 +2324,7 @@ export const namedOperations = {
     CreateGarage: "CreateGarage",
     CreateManySlots: "CreateManySlots",
     createBookingTimeline: "createBookingTimeline",
+    CreateValet: "CreateValet",
   },
   Fragment: {
     ValetFields: "ValetFields",
@@ -4091,3 +4140,243 @@ export const CreateBookingTimelineDocument = {
   CreateBookingTimelineMutation,
   CreateBookingTimelineMutationVariables
 >;
+export const ValetMeDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "ValetMe" },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "valetMe" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "uid" } },
+                { kind: "Field", name: { kind: "Name", value: "companyId" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<ValetMeQuery, ValetMeQueryVariables>;
+export const CreateValetDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "CreateValet" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "createValetInput" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "CreateValetInput" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "createValet" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "createValetInput" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "createValetInput" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "uid" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<CreateValetMutation, CreateValetMutationVariables>;
+export const CompanyValetsDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "companyValets" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "distinct" },
+          },
+          type: {
+            kind: "ListType",
+            type: {
+              kind: "NonNullType",
+              type: {
+                kind: "NamedType",
+                name: { kind: "Name", value: "ValetScalarFieldEnum" },
+              },
+            },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "skip" } },
+          type: { kind: "NamedType", name: { kind: "Name", value: "Float" } },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "take" } },
+          type: { kind: "NamedType", name: { kind: "Name", value: "Float" } },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "cursor" },
+          },
+          type: {
+            kind: "NamedType",
+            name: { kind: "Name", value: "ValetWhereUniqueInput" },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "orderBy" },
+          },
+          type: {
+            kind: "ListType",
+            type: {
+              kind: "NonNullType",
+              type: {
+                kind: "NamedType",
+                name: { kind: "Name", value: "ValetOrderByWithRelationInput" },
+              },
+            },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "where" },
+          },
+          type: {
+            kind: "NamedType",
+            name: { kind: "Name", value: "ValetWhereInput" },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "companyValets" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "distinct" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "distinct" },
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "skip" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "skip" },
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "take" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "take" },
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "cursor" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "cursor" },
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "orderBy" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "orderBy" },
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "where" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "where" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "displayName" } },
+                { kind: "Field", name: { kind: "Name", value: "uid" } },
+                { kind: "Field", name: { kind: "Name", value: "createdAt" } },
+                { kind: "Field", name: { kind: "Name", value: "updatedAt" } },
+                { kind: "Field", name: { kind: "Name", value: "companyId" } },
+                { kind: "Field", name: { kind: "Name", value: "image" } },
+                { kind: "Field", name: { kind: "Name", value: "licenseID" } },
+              ],
+            },
+          },
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "companyValetsTotal" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "where" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "where" },
+                },
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<CompanyValetsQuery, CompanyValetsQueryVariables>;
