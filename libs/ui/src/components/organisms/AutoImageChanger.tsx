@@ -62,7 +62,7 @@ export const AutoImageChanger = ({
             className="absolute transform -translate-y-1/2 top-1/2 left-2"
             onClick={() =>
               setCurrentImageIndex((prevIndex) =>
-                prevIndex === 0 ? images.length - 1 : prevIndex - 1,
+                prevIndex === 0 ? images.length - 1 : prevIndex - 1
               )
             }
           >
@@ -73,7 +73,7 @@ export const AutoImageChanger = ({
             className="absolute transform -translate-y-1/2 top-1/2 right-2"
             onClick={() =>
               setCurrentImageIndex(
-                (prevIndex) => (prevIndex + 1) % images.length,
+                (prevIndex) => (prevIndex + 1) % images.length
               )
             }
           >

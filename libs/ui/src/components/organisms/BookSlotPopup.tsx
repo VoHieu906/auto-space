@@ -46,7 +46,7 @@ export const BookSlotPopup = ({
     useWatch<FormTypeBookSlot>();
 
   const pricePerHour = garage.availableSlots.find(
-    (slot) => slot.type === type,
+    (slot) => slot.type === type
   )?.pricePerHour;
 
   const totalPriceObj = useTotalPrice({
@@ -96,7 +96,7 @@ export const BookSlotPopup = ({
             const res = await createBookingSession(
               uid!,
               totalPriceObj,
-              bookingData,
+              bookingData
             );
           } catch (error) {
             toast("An error occurred while creating the booking session.");
@@ -234,7 +234,7 @@ export const BookSlotPopup = ({
 export const createBookingSession = async (
   uid: string,
   totalPriceObj: TotalPrice,
-  bookingData: CreateBookingInput,
+  bookingData: CreateBookingInput
 ) => {
   try {
     const response = await fetch(process.env.NEXT_PUBLIC_API_URL + "/stripe", {

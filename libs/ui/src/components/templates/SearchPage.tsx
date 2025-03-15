@@ -37,7 +37,7 @@ export const SearchPage = () => {
       console.log("locationFilter:", locationFilter);
       setValue("locationFilter", locationFilter);
     },
-    [setValue],
+    [setValue]
   );
   return (
     <div>

@@ -11,6 +11,6 @@ export const Form = React.forwardRef<HTMLFormElement, FormProps>(
     >
       {props.children}
     </form>
-  ),
+  )
 );
 Form.displayName = "Form";

@@ -57,7 +57,7 @@ const CreateGarageContent = () => {
       onError(error, clientOptions) {
         toast("Action failed.");
       },
-    },
+    }
   );
 
   return (
@@ -85,7 +85,7 @@ const CreateGarageContent = () => {
                   },
                 },
               });
-            },
+            }
           )}
         >
           <HtmlLabel error={errors.displayName?.message} title="Display Name">

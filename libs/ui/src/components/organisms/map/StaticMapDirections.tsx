@@ -42,7 +42,7 @@ export const StaticMapDirections = ({
   },${start.lat}),pin-s-b+000(${end.lng},${
     end.lat
   }),path-2+000(${encodeURIComponent(
-    encodedPolyline,
+    encodedPolyline
   )})/[${boundingBox}]/600x600?padding=${paddingString}&access_token=${
     process.env.NEXT_PUBLIC_MAPBOX_TOKEN
   }`;

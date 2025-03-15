@@ -13,7 +13,7 @@ export const useSearchLocation = () => {
     setLoading(true);
 
     fetch(
-      `https://api.mapbox.com/geocoding/v5/mapbox.places/${debouncedSearchText}.json?fuzzyMatch=true&access_token=${process.env.NEXT_PUBLIC_MAPBOX_TOKEN}`,
+      `https://api.mapbox.com/geocoding/v5/mapbox.places/${debouncedSearchText}.json?fuzzyMatch=true&access_token=${process.env.NEXT_PUBLIC_MAPBOX_TOKEN}`
     )
       .then((response) => response.json())
       .then((data) => {

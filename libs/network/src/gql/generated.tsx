@@ -12,7 +12,7 @@ export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
 };
 export type MakeEmpty<
   T extends { [key: string]: unknown },
-  K extends keyof T,
+  K extends keyof T
 > = { [_ in K]?: never };
 export type Incremental<T> =
   | T
@@ -1003,7 +1003,9 @@ export type Query = {
   address: Address;
   addresses: Array<Address>;
   admin: Admin;
+  adminMe: Admin;
   admins: Array<Admin>;
+  adminsCount: Scalars["Float"]["output"];
   booking: Booking;
   bookingTimeline: BookingTimeline;
   bookingTimelines: Array<BookingTimeline>;
@@ -1069,6 +1071,10 @@ export type QueryAdminsArgs = {
   orderBy?: InputMaybe<Array<AdminOrderByWithRelationInput>>;
   skip?: InputMaybe<Scalars["Float"]["input"]>;
   take?: InputMaybe<Scalars["Float"]["input"]>;
+  where?: InputMaybe<AdminWhereInput>;
+};
+
+export type QueryAdminsCountArgs = {
   where?: InputMaybe<AdminWhereInput>;
 };
 
@@ -2465,6 +2471,99 @@ export type MyDropTripsQuery = {
   bookingsCount: { __typename?: "AggregateCountOutput"; count: number };
 };
 
+export type AdminMeQueryVariables = Exact<{ [key: string]: never }>;
+
+export type AdminMeQuery = {
+  __typename?: "Query";
+  adminMe: { __typename?: "Admin"; uid: string };
+};
+
+export type CreateVerificationMutationVariables = Exact<{
+  createVerificationInput: CreateVerificationInput;
+}>;
+
+export type CreateVerificationMutation = {
+  __typename?: "Mutation";
+  createVerification: {
+    __typename?: "Verification";
+    adminId: string;
+    createdAt: any;
+    garageId: number;
+    updatedAt: any;
+    verified: boolean;
+  };
+};
+
+export type RemoveVerificationMutationVariables = Exact<{
+  where: VerificationWhereUniqueInput;
+}>;
+
+export type RemoveVerificationMutation = {
+  __typename?: "Mutation";
+  removeVerification: {
+    __typename?: "Verification";
+    adminId: string;
+    createdAt: any;
+    garageId: number;
+    updatedAt: any;
+    verified: boolean;
+  };
+};
+
+export type AdminsQueryVariables = Exact<{
+  distinct?: InputMaybe<Array<AdminScalarFieldEnum> | AdminScalarFieldEnum>;
+  skip?: InputMaybe<Scalars["Float"]["input"]>;
+  take?: InputMaybe<Scalars["Float"]["input"]>;
+  cursor?: InputMaybe<AdminWhereUniqueInput>;
+  orderBy?: InputMaybe<
+    Array<AdminOrderByWithRelationInput> | AdminOrderByWithRelationInput
+  >;
+  where?: InputMaybe<AdminWhereInput>;
+}>;
+
+export type AdminsQuery = {
+  __typename?: "Query";
+  adminsCount: number;
+  admins: Array<{
+    __typename?: "Admin";
+    uid: string;
+    updatedAt: any;
+    createdAt: any;
+    verificationsCount: number;
+    user?: { __typename?: "User"; name?: string | null } | null;
+  }>;
+};
+
+export type RemoveAdminMutationVariables = Exact<{
+  where: AdminWhereUniqueInput;
+}>;
+
+export type RemoveAdminMutation = {
+  __typename?: "Mutation";
+  removeAdmin: {
+    __typename?: "Admin";
+    createdAt: any;
+    updatedAt: any;
+    uid: string;
+    user?: { __typename?: "User"; name?: string | null } | null;
+  };
+};
+
+export type CreateAdminMutationVariables = Exact<{
+  createAdminInput: CreateAdminInput;
+}>;
+
+export type CreateAdminMutation = {
+  __typename?: "Mutation";
+  createAdmin: {
+    __typename?: "Admin";
+    createdAt: any;
+    uid: string;
+    updatedAt: any;
+    user?: { __typename?: "User"; name?: string | null } | null;
+  };
+};
+
 export const namedOperations = {
   Query: {
     Companies: "Companies",
@@ -2480,6 +2579,8 @@ export const namedOperations = {
     valetDrops: "valetDrops",
     myPickupTrips: "myPickupTrips",
     myDropTrips: "myDropTrips",
+    AdminMe: "AdminMe",
+    admins: "admins",
   },
   Mutation: {
     RegisterWithCredentials: "RegisterWithCredentials",
@@ -2491,6 +2592,10 @@ export const namedOperations = {
     createBookingTimeline: "createBookingTimeline",
     CreateValet: "CreateValet",
     AssignValet: "AssignValet",
+    CreateVerification: "CreateVerification",
+    RemoveVerification: "RemoveVerification",
+    RemoveAdmin: "RemoveAdmin",
+    CreateAdmin: "CreateAdmin",
   },
   Fragment: {
     ValetFields: "ValetFields",
@@ -5362,3 +5467,443 @@ export const MyDropTripsDocument = {
     },
   ],
 } as unknown as DocumentNode<MyDropTripsQuery, MyDropTripsQueryVariables>;
+export const AdminMeDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "AdminMe" },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "adminMe" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "uid" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<AdminMeQuery, AdminMeQueryVariables>;
+export const CreateVerificationDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "CreateVerification" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "createVerificationInput" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "CreateVerificationInput" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "createVerification" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "createVerificationInput" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "createVerificationInput" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "adminId" } },
+                { kind: "Field", name: { kind: "Name", value: "createdAt" } },
+                { kind: "Field", name: { kind: "Name", value: "garageId" } },
+                { kind: "Field", name: { kind: "Name", value: "updatedAt" } },
+                { kind: "Field", name: { kind: "Name", value: "verified" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  CreateVerificationMutation,
+  CreateVerificationMutationVariables
+>;
+export const RemoveVerificationDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "RemoveVerification" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "where" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "VerificationWhereUniqueInput" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "removeVerification" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "where" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "where" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "adminId" } },
+                { kind: "Field", name: { kind: "Name", value: "createdAt" } },
+                { kind: "Field", name: { kind: "Name", value: "garageId" } },
+                { kind: "Field", name: { kind: "Name", value: "updatedAt" } },
+                { kind: "Field", name: { kind: "Name", value: "verified" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  RemoveVerificationMutation,
+  RemoveVerificationMutationVariables
+>;
+export const AdminsDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "admins" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "distinct" },
+          },
+          type: {
+            kind: "ListType",
+            type: {
+              kind: "NonNullType",
+              type: {
+                kind: "NamedType",
+                name: { kind: "Name", value: "AdminScalarFieldEnum" },
+              },
+            },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "skip" } },
+          type: { kind: "NamedType", name: { kind: "Name", value: "Float" } },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "take" } },
+          type: { kind: "NamedType", name: { kind: "Name", value: "Float" } },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "cursor" },
+          },
+          type: {
+            kind: "NamedType",
+            name: { kind: "Name", value: "AdminWhereUniqueInput" },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "orderBy" },
+          },
+          type: {
+            kind: "ListType",
+            type: {
+              kind: "NonNullType",
+              type: {
+                kind: "NamedType",
+                name: { kind: "Name", value: "AdminOrderByWithRelationInput" },
+              },
+            },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "where" },
+          },
+          type: {
+            kind: "NamedType",
+            name: { kind: "Name", value: "AdminWhereInput" },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "admins" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "distinct" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "distinct" },
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "skip" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "skip" },
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "take" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "take" },
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "cursor" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "cursor" },
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "orderBy" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "orderBy" },
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "where" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "where" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "uid" } },
+                { kind: "Field", name: { kind: "Name", value: "updatedAt" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "user" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "name" } },
+                    ],
+                  },
+                },
+                { kind: "Field", name: { kind: "Name", value: "createdAt" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "verificationsCount" },
+                },
+              ],
+            },
+          },
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "adminsCount" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "where" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "where" },
+                },
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<AdminsQuery, AdminsQueryVariables>;
+export const RemoveAdminDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "RemoveAdmin" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "where" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "AdminWhereUniqueInput" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "removeAdmin" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "where" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "where" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "createdAt" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "user" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "name" } },
+                    ],
+                  },
+                },
+                { kind: "Field", name: { kind: "Name", value: "updatedAt" } },
+                { kind: "Field", name: { kind: "Name", value: "uid" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<RemoveAdminMutation, RemoveAdminMutationVariables>;
+export const CreateAdminDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "CreateAdmin" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "createAdminInput" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "CreateAdminInput" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "createAdmin" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "createAdminInput" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "createAdminInput" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "createdAt" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "user" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "name" } },
+                    ],
+                  },
+                },
+                { kind: "Field", name: { kind: "Name", value: "uid" } },
+                { kind: "Field", name: { kind: "Name", value: "updatedAt" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<CreateAdminMutation, CreateAdminMutationVariables>;
