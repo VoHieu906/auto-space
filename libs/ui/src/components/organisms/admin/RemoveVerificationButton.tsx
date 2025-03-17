@@ -15,7 +15,7 @@ export const RemoveVerificationButton = ({
     {
       awaitRefetchQueries: true,
       refetchQueries: [namedOperations.Query.Garages],
-    }
+    },
   );
 
   return (

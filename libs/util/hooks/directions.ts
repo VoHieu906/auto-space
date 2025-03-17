@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 export const useMapboxDirections = (
   start?: Partial<LatLng> | null,
-  end?: Partial<LatLng> | null
+  end?: Partial<LatLng> | null,
 ) => {
   const [data, setData] = useState<[number, number][]>([]);
   const [distance, setDistance] = useState(null);
@@ -20,12 +20,12 @@ export const useMapboxDirections = (
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `https://api.mapbox.com/directions/v5/mapbox/driving/${start.lng},${start.lat};${end.lng},${end.lat}?access_token=${process.env.NEXT_PUBLIC_MAPBOX_TOKEN}&steps=true&overview=simplified`
+          `https://api.mapbox.com/directions/v5/mapbox/driving/${start.lng},${start.lat};${end.lng},${end.lat}?access_token=${process.env.NEXT_PUBLIC_MAPBOX_TOKEN}&steps=true&overview=simplified`,
         );
         const data = await response.json();
         const coordinates =
           data?.routes[0]?.legs[0]?.steps?.map(
-            (step: { maneuver: { location: any } }) => step.maneuver.location
+            (step: { maneuver: { location: any } }) => step.maneuver.location,
           ) || [];
         setData(coordinates);
         setDistance(data.routes[0].distance);

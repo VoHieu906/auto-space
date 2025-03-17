@@ -87,7 +87,7 @@ export const useConvertSearchFormToVariables = () => {
 
 export const createSlotsFilter = (
   dirtyFields: FieldNamesMarkedBoolean<FormTypeSearchGarage>,
-  formData: FormData
+  formData: FormData,
 ) => {
   const length = dirtyFields.length && intFilter(formData.length);
   const width = dirtyFields.width && intFilter(formData.width);
@@ -107,7 +107,7 @@ export const createSlotsFilter = (
 
 export const createGaragesFilter = (
   dirtyFields: FieldNamesMarkedBoolean<FormTypeSearchGarage>,
-  formData: FormData
+  formData: FormData,
 ) => {
   const skip = (dirtyFields.skip && formData.skip) || 0;
   const take = (dirtyFields.take && formData.take) || 10;

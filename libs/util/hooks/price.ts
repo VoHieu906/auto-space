@@ -35,7 +35,7 @@ export const useTotalPrice = ({ pricePerHour }: TotalPriceType) => {
 
     setValetChargePickup(Math.floor(pickupCharge));
     setValetChargeDropoff(
-      Math.floor(valet?.differentLocations ? dropoffCharge : pickupCharge)
+      Math.floor(valet?.differentLocations ? dropoffCharge : pickupCharge),
     );
   }, [valet]);
   return {

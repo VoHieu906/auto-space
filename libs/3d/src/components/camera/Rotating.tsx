@@ -30,7 +30,7 @@ export const RotatingCamera = ({
       setFov(
         minFov +
           amplitude +
-          Math.sin(state.clock.elapsedTime * oscillationSpeed) * amplitude
+          Math.sin(state.clock.elapsedTime * oscillationSpeed) * amplitude,
       );
     }
   });

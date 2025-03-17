@@ -22,7 +22,7 @@ export const BuildingSet = ({
       BUILDING_SETS[buildingSetIndex].map(() => {
         const randHeight = randExp(minHeight, maxHeight, 7);
         return Math.floor(randHeight);
-      })
+      }),
     );
   }, []);
 

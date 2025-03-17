@@ -15,7 +15,7 @@ export const CreateVerificationButton = ({
     {
       awaitRefetchQueries: true,
       refetchQueries: [namedOperations.Query.Garages],
-    }
+    },
   );
 
   return (

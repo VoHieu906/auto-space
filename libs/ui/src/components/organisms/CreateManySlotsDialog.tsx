@@ -36,7 +36,7 @@ export const CreateManySlotsDialog = ({ garageId }: { garageId: number }) => {
       onError(error, clientOptions) {
         toast("Action failed.");
       },
-    }
+    },
   );
 
   return (
