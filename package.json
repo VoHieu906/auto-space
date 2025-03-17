@@ -20,7 +20,6 @@
     "tsc": "yarn nx run-many -t tsc",
     "lint": "yarn nx run-many -t lint",
     "build": "yarn nx run-many -t build",
-    "start": "node dist/main",
     "validate": "yarn format:write && yarn tsc && yarn lint && yarn build",
     "prepare": "husky install",
     "cloc": "npx cloc --exclude-dir=node_modules,dist,build,yarn.lock,package.json,generated.tsx,.next,.nx ."
