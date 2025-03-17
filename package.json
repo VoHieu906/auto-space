@@ -27,13 +27,16 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "engines": {
+    "node": ">=20"
+  },
   "devDependencies": {
     "husky": "^8.0.0",
     "nx": "18.3.4",
     "prettier": "^2.3.2",
-    "typescript": "5.4.3"
+    "typescript": "5.7.2"
   },
   "resolutions": {
-    "typescript": "5.4.3"
+    "typescript": "5.7.2"
   }
 }
